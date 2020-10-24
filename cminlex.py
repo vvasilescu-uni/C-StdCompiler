@@ -19,8 +19,6 @@ tokens = [
     'LBRACE', 'RBRACE',
 
     'ID', 'NUM',
-
-    'COMMENT'
 ] + list(reserved.values())
 
 t_ignore           = ' \t'
@@ -50,20 +48,20 @@ t_RBRACE           = r'\}'
 
 t_NUM              = r'\b(?<!\.)[0-9]+(?![\.\d])'
 
-t_COMMENT          = r'/\*(.|\n)*?\*/'
-
 
 def t_ID(t):
     r'[A-Za-z_][A-Za-z0-9_]*'
     t.type = reserved.get(t.value, 'ID')
     return t
 
+def t_COMMENT(t):
+    r'/\*(.|\n)*?\*/'
+    t.lexer.lineno += t.value.count('\n')
+
+def t_NEWLINE(t):
+    r'\n+'
+    t.lexer.lineno += len(t.value)
 
 def t_error(t):
     print ("Illegal character '%s'" , t.value[0])
     t.lexer.skip(1)
-
-
-def t_newline(t):
-    r'\n+'
-    t.lexer.lineno += len(t.value)
