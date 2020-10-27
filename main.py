@@ -18,4 +18,9 @@ lexer.input(data)
 
 
 parser = yacc.yacc()
-print(parser.parse(data))
+result = parser.parse(data)
+dec_list = result.declaration_list
+
+for decl in dec_list:
+    for param  in decl.params:
+        print(param)
