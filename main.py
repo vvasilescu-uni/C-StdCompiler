@@ -4,23 +4,15 @@ import ply.yacc as yacc
 from cminlex import *
 from cmingrammar import *
 
+from utils import CustomEncoder
 
-lexer = lex.lex()
 with open('example.c' , 'r') as example_file:
     data = example_file.read()
 
+lexer = lex.lex()
 lexer.input(data)
 
-# while 1:
-#     token = lexer.token()
-#     if not token: break
-#     print('{}\t\t\t{}\t\t\t{}\t\t\t{}'.format(token.type, token.value, token.lineno, token.lexpos))
-
-
 parser = yacc.yacc()
-result = parser.parse(data)
-dec_list = result.declaration_list
+program = parser.parse(data)
 
-for decl in dec_list:
-    for param  in decl.params:
-        print(param)
+print(CustomEncoder().encode(program))

@@ -1,7 +1,6 @@
 from ast_nodes import *
 
 precedence = (
-    ('left', 'LT', 'LE', 'GT', 'GE', 'EQ', 'NE'),
     ('left', 'PLUS', 'MINUS'),
     ('left', 'TIMES', 'DIVIDE')
 )
@@ -24,8 +23,8 @@ def p_declaration(p):
 def p_var_declaration(p):
     '''var_declaration : type_specifier ID SEMI
                        | type_specifier ID LBRACKET NUM RBRACKET SEMI'''
-    if len(p) == 4: p[0] = VariableDeclaration(p[1], p[2], 1)
-    else: p[0] = VariableDeclaration(p[1], [2], p[4])
+    if len(p) == 4: p[0] = VariableDeclaration(p[1], p[2])
+    else: p[0] = VariableDeclaration(p[1], p[2], p[4])
 
 def p_type_specifier(p):
     '''type_specifier : INT
@@ -80,7 +79,7 @@ def p_statement(p):
 def p_expression_stmt(p):
     '''expression_stmt : expression SEMI
                        | SEMI'''
-    if len(p) == 2: p[0] = p[1]
+    if len(p) == 3: p[0] = p[1]
 
 def p_selection_stmt(p):
     '''selection_stmt : IF LPAREN expression RPAREN statement

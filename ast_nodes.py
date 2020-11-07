@@ -4,25 +4,23 @@ class Program():
 
 
 class VariableDeclaration():
-    def __init__(self, type, name, size):
-        self.type = type
+    def __init__(self, data_type, name, size=1):
+        self.data_type = data_type
         self.name = name
         self.size = size
 
 
 class FunctionDeclaration():
-    def __init__(self, type, name, params, body):
-        self.type = type
+    def __init__(self, data_type, name, params, body):
+        self.data_type = data_type
         self.name = name
         self.params = params
-        if params is list: self.params = params
-        else: self.params = [params]
         self.body = body
 
 
 class FunctionParameter():
-    def __init__(self, type, name, is_array):
-        self.type = type
+    def __init__(self, data_type, name, is_array):
+        self.data_type = data_type
         self.name = name
         self.is_array = is_array
 
